@@ -1,3 +1,15 @@
-<p>
-  login works!
-</p>
+<div class="form-group">
+  <mat-card class="card">
+  <form class="example-form" [formGroup]="registrForm"  novalidate (ngSubmit)="submit()">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="login" formControlName="loginUser">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary">Primary</button>
+  </form>
+  </mat-card>
+</div>
