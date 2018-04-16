@@ -11,7 +11,7 @@
 <ng-template #menu>
   <mat-list>
     <h3 mat-subheader>Меню сайта</h3>
-    <mat-list-item *ngFor="let item of menuItems" [routerLink]="item.path">
+    <mat-list-item *ngFor="let item of menuService.menu" [routerLink]="item.path">
       <!--<button mat-button>-->
         <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
         <h4 mat-line>{{item.title}}</h4>

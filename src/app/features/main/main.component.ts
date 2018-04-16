@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MenuItem} from '../../core/models/ui/menu';
+import {MenuService} from "./main.services/menu.service";
 
 @Component({
   selector: 'app-main',
@@ -8,15 +9,9 @@ import {MenuItem} from '../../core/models/ui/menu';
 })
 export class MainComponent implements OnInit {
   test = 'test for data binding';
-  menuItems: MenuItem[] = [
-    {path: '/users', title: 'Пользователи', icon: 'account_circle'},
-    {path: '/stats', title: 'Статистика', icon: 'show_chart'},
-    {path: '/events', title: 'Мероприятия', icon: 'event'},
-    {path: '/quizzes', title: 'Опросы', icon: 'check_circle'},
-      {path: '/settings', title: 'Настройки', icon: 'settings'}
-  ];
 
-  constructor() {
+
+  constructor(public menuService: MenuService) {
   }
 
   ngOnInit() {

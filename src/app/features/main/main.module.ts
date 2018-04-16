@@ -8,11 +8,12 @@ import {EventsComponent} from './events/events.component';
 import {QuizzesModule} from './quizzes/quizzes.module';
 import { SettingsComponent } from './settings/settings.component';
 import {SettingsModule} from "./settings/settings.module";
+import {MenuService} from "./main.services/menu.service";
 
 const routes: Routes = [
   {
     path: '', component: MainComponent, children: [
-      {path: 'home', component: HomeComponent},
+      {path: '', component: HomeComponent},
       {path: 'users', loadChildren: './users/users.module#UsersModule'},
       {path: 'stats', loadChildren: './statistics/statistics.module#StatisticsModule'},
       {path: 'events', loadChildren: './events/events.module#EventsModule'},
@@ -31,6 +32,9 @@ const routes: Routes = [
   declarations: [
     MainComponent,
     HomeComponent
+  ],
+  providers: [
+    MenuService
   ]
 })
 export class MainModule {

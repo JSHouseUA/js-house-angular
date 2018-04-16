@@ -1,3 +1,8 @@
-<p>
-  home works!
-</p>
+<main id="home">
+  <mat-card class="card" [routerLink]="item.path" *ngFor="let item of menuService.menu">
+    <img [src]="item.background">
+    <div class="card-content">
+      <h2>{{item.title}}</h2>
+    </div>
+  </mat-card>
+</main>

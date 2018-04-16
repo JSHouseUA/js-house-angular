@@ -22,6 +22,11 @@ export interface MenuItem {
    * is optional parameter, that means if user have some new notifications on the rout
    */
   counter?: MenuItemCounter;
+
+  /**
+   * background for cards on home page
+   */
+  background?: string;
 }
 
 /**
