@@ -1,3 +1,51 @@
-<p>
-  main works!
-</p>
+<!--Toolbar-->
+<ng-template #toolbar>
+  <span>User name</span>
+  <span class="spacer"></span>
+  <span>Some button</span>
+  <button mat-button>Log out</button>
+</ng-template>
+<!--./Toolbar-->
+
+<!--Menu-->
+<ng-template #menu>
+  <mat-list>
+    <h3 mat-subheader>Меню сайта</h3>
+    <mat-list-item *ngFor="let item of menuItems" [routerLink]="item.path">
+      <!--<button mat-button>-->
+        <mat-icon mat-list-icon>{{item.icon}}</mat-icon>
+        <h4 mat-line>{{item.title}}</h4>
+      <!--</button>-->
+    </mat-list-item>
+  </mat-list>
+</ng-template>
+<!--./Menu-->
+
+<!--Main content-->
+<ng-template #main>
+  <p>
+    <button color="primary" mat-button (click)="sidenav.toggle()">sidenav.toggle() {{sidenav.isOpen}}</button>
+  </p>
+
+  <p>{{test}}</p>
+  <div><i>router-outlet</i></div>
+  <router-outlet></router-outlet>
+  <div><i>!router-outlet</i></div>
+</ng-template>
+<!--./Main content-->
+
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav mode="side" #sidenav>
+    <ng-container *ngTemplateOutlet="menu"></ng-container>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <ng-container *ngTemplateOutlet="main"></ng-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
