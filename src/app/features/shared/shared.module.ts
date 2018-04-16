@@ -1,5 +1,5 @@
 import {MaterialModule} from "./material.module";
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {CommonModule} from "@angular/common";
 
 
@@ -12,8 +12,10 @@ import {CommonModule} from "@angular/common";
   exports: [
     CommonModule,
     MaterialModule
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
   ]
-
 })
 export class SharedModule {
 }
