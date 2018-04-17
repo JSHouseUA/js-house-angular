@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '../../shared/shared.module';
 import {MainComponent} from './main.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {QuizzesComponent} from './quizzes/quizzes.component';
+import {SurveysComponent} from './surveys/surveys.component';
 import {EventsComponent} from './events/events.component';
-import {QuizzesModule} from './quizzes/quizzes.module';
+import {SurveysModule} from './surveys/surveys.module';
 import { SettingsComponent } from './settings/settings.component';
 import {SettingsModule} from "./settings/settings.module";
 import {MenuService} from "./main.services/menu.service";
@@ -17,7 +17,7 @@ const routes: Routes = [
       {path: 'users', loadChildren: './users/users.module#UsersModule'},
       {path: 'stats', loadChildren: './statistics/statistics.module#StatisticsModule'},
       {path: 'events', loadChildren: './events/events.module#EventsModule'},
-      {path: 'quizzes', loadChildren: './quizzes/quizzes.module#QuizzesModule'},
+      {path: 'surveys', loadChildren: './surveys/surveys.module#SurveysModule'},
       {path: 'settings', loadChildren: './settings/settings.module#SettingsModule'},
 
     ]

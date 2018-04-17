@@ -1,0 +1,50 @@
+<div>
+  <form [formGroup]="answerForm">
+    <mat-form-field>
+      <input matInput placeholder="Question" formControlName="title">
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <input matInput placeholder="Short description" formControlName="description">
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <input matInput placeholder="placeholder" formControlName="placeholder">
+    </mat-form-field>
+    <hr>
+    <mat-form-field>
+      <input matInput placeholder="Answer max length" type="number" min="50" formControlName="maxLength">
+    </mat-form-field>
+    <hr>
+
+    <mat-checkbox formControlName="required">required</mat-checkbox>
+
+  </form>
+  <form #regexSelect="ngForm" #regexSelectForm>
+    <mat-form-field>
+      <mat-select placeholder="RegEx" name="regex" [(ngModel)]="regex" (ngModelChange)="onRegexTypeChange($event)">
+        <mat-option *ngFor="let regex of regexes" [value]="regex">
+          {{ regex.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+
+  <div>{{regex | json}}</div>
+  <form #regexForm="ngForm" *ngIf="regex.name == 'custom'">
+    <mat-form-field>
+      <input matInput placeholder="Regex Name" name="name" [(ngModel)]="customRegex.name" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Regex pattern" name="regex" [(ngModel)]="customRegex.regex" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Flags" name="flags" [(ngModel)]="customRegex.flags" multiple>
+        <mat-option *ngFor="let flag of flags" [value]="flag.value">{{flag.description}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button (click)="submit(regexForm)">submit</button>
+  </form>
+
+</div>
