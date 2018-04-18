@@ -32,15 +32,15 @@
 
 
   <div>{{regex | json}}</div>
-  <form #regexForm="ngForm" *ngIf="regex.name == 'custom'">
+  <form #regexForm="ngForm" [hidden]="!isCustomRegex">
     <mat-form-field>
-      <input matInput placeholder="Regex Name" name="name" [(ngModel)]="customRegex.name" required>
+      <input matInput placeholder="Regex Name" name="name" [(ngModel)]="regex.name" required>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Regex pattern" name="regex" [(ngModel)]="customRegex.regex" required>
+      <input matInput placeholder="Regex pattern" name="regex" [(ngModel)]="regex.regex" required>
     </mat-form-field>
     <mat-form-field>
-      <mat-select placeholder="Flags" name="flags" [(ngModel)]="customRegex.flags" multiple>
+      <mat-select placeholder="Flags" name="flags" [(ngModel)]="regex.flags" multiple>
         <mat-option *ngFor="let flag of flags" [value]="flag.value">{{flag.description}}</mat-option>
       </mat-select>
     </mat-form-field>

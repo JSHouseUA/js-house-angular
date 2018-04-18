@@ -11,6 +11,7 @@ export class ShortAnswerComponent implements OnInit {
 
   @Input() formData: FormGroup;
   @ViewChild('regexSelect') regexSelect: NgForm;
+  @ViewChild('regexForm') regexForm: NgForm;
 
   answerForm: FormGroup;
   regexes: PreparedRegex.Model[] = [
@@ -21,11 +22,6 @@ export class ShortAnswerComponent implements OnInit {
   ];
   regex: PreparedRegex.Model = this.regexes[0];
   flags: PreparedRegex.Flag[] = PreparedRegex.flags;
-  customRegex: PreparedRegex.Model = {
-    flags: [],
-    name: 'Custom Regex',
-    regex: ''
-  };
 
   constructor(private fb: FormBuilder) {
   }
@@ -44,17 +40,20 @@ export class ShortAnswerComponent implements OnInit {
       'required': [false]
     });
     this.formData.addControl('formData', this.answerForm);
+    this.formData.addControl('regex', this.regexForm.control);
   }
 
   onRegexTypeChange(regex: PreparedRegex.Model): void {
     console.log(regex)
-    console.log(this.regexSelect)
-    debugger;
   }
   submit(e: NgForm){
     console.dir(e.control)
     console.dir(e.value)
     console.dir(e.valid)
+  }
+
+  get isCustomRegex(): boolean{
+    return this.regexes.indexOf(this.regex) > 2
   }
 
 
