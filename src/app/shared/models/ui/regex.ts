@@ -13,7 +13,20 @@ export namespace PreparedRegex {
 
   export const phone: Model = {
     name: 'phone',
-    regex: '^([0|\\+[0-9]{1,5})?([7-9][0-9]{9})$'
+    regex: '^([0|\\+[0-9]{1,5})?([7-9][0-9]{9})$',
+    flags: []
+  };
+
+  export const none: Model = {
+    name: 'none',
+    regex: '',
+    flags: []
+  };
+
+  export const custom: Model = {
+    name: 'custom',
+    regex: '',
+    flags: []
   };
 
   export interface Flag {
@@ -27,6 +40,13 @@ export namespace PreparedRegex {
     { value: 'm', description: 'multiline'},
     { value: 'u', description: 'Unicode'},
     { value: 'y', description: 'sticky'},
-  ]
+  ];
+
+  export const Regexes: Model[] = [
+    PreparedRegex.none,
+    PreparedRegex.email,
+    PreparedRegex.phone,
+    PreparedRegex.custom
+  ];
 }
 

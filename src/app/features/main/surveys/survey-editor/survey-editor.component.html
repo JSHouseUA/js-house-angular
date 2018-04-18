@@ -1,5 +1,7 @@
 <p>
   survey-editor works!
 </p>
-<app-short-answer [formData]="shortAnswer"></app-short-answer>
-<button (click)="asd()">CLICK</button>
+<!--<app-short-answer *ngFor="let group of surveyGroup.controls" [formData]="group"></app-short-answer>-->
+<app-survey-factory *ngFor="let group of surveyGroup.controls" [control]="group"></app-survey-factory>
+<button (click)="consoler()">consoler</button>
+<button (click)="addQuestion()">CLICK</button>

@@ -1,46 +1,47 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {PreparedRegex} from "../../../../../shared/models/ui/regex";
+import {CommonAnswerComponent} from '../survey-factory/common-answer.component';
 
 @Component({
   selector: 'app-short-answer',
   templateUrl: './short-answer.component.html',
   styleUrls: ['./short-answer.component.css']
 })
-export class ShortAnswerComponent implements OnInit {
+export class ShortAnswerComponent extends CommonAnswerComponent implements OnInit {
 
-  @Input() formData: FormGroup;
   @ViewChild('regexSelect') regexSelect: NgForm;
   @ViewChild('regexForm') regexForm: NgForm;
 
-  answerForm: FormGroup;
-  regexes: PreparedRegex.Model[] = [
-    {name: 'none'},
-    PreparedRegex.email,
-    PreparedRegex.phone,
-    {name: 'custom'}
-  ];
+  regexes: PreparedRegex.Model[] = PreparedRegex.Regexes;
   regex: PreparedRegex.Model = this.regexes[0];
   flags: PreparedRegex.Flag[] = PreparedRegex.flags;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
+    super()
   }
 
   ngOnInit(): void {
-    this.buildForm()
+
   }
 
   buildForm(): void {
-    this.answerForm = this.fb.group({
-      'title': ['', Validators.required],
-      'description': [''],
-      'validators': [''],
-      'placeholder': [''],
-      'maxLength': [100, Validators.required],
-      'required': [false]
+    this.answerForm = <FormGroup>this.formData.controls.formData;
+    /**
+     * So strange code because of error with multiSelect
+     */
+    const regexExternal = this.formData.controls.regex.value;
+    setTimeout(() => {
+      this.regexForm.setValue({
+        'regex': regexExternal.regex,
+        'name': regexExternal.name,
+        'flags': regexExternal.flags
+      });
+      // this.regexForm.setValue({'name': regexExternal.name});
+      // this.regexForm.setValue({'flags': regexExternal.flags});
+      // this.formData.addControl('formData', this.answerForm);
+      this.formData.setControl('regex', this.regexForm.control);
     });
-    this.formData.addControl('formData', this.answerForm);
-    this.formData.addControl('regex', this.regexForm.control);
   }
 
   onRegexTypeChange(regex: PreparedRegex.Model): void {

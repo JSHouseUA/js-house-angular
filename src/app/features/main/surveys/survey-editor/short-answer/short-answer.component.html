@@ -1,21 +1,20 @@
-<div>
+<div *ngIf="answerForm">
   <form [formGroup]="answerForm">
     <mat-form-field>
       <input matInput placeholder="Question" formControlName="title">
     </mat-form-field>
-    <hr>
+
     <mat-form-field>
       <input matInput placeholder="Short description" formControlName="description">
     </mat-form-field>
-    <hr>
+
     <mat-form-field>
       <input matInput placeholder="placeholder" formControlName="placeholder">
     </mat-form-field>
-    <hr>
+
     <mat-form-field>
       <input matInput placeholder="Answer max length" type="number" min="50" formControlName="maxLength">
     </mat-form-field>
-    <hr>
 
     <mat-checkbox formControlName="required">required</mat-checkbox>
 
