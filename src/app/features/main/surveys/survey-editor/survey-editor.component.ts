@@ -17,7 +17,7 @@ export class SurveyEditorComponent implements OnInit {
 
   shortAnswer: FormGroup = new FormGroup({});
 
-  surveyGroup: FormArray;
+  surveyGroup: FormGroup[] = [];
 
   asd(): void {
     console.dir(this.shortAnswer)
@@ -30,29 +30,21 @@ export class SurveyEditorComponent implements OnInit {
 
   buildInitSurvey(){
     let data = JSON.parse(localStorage.getItem('asd'));
-    console.dir(data, InitShortAnswer)
-    this.surveyGroup = this.fb.array([
-      this.getSurveyElement(!!data ? data.model : InitShortAnswer, !!data ? data.type : null)
-    ])
-    // debugger;
-  }
-
-  getSurveyElement(data: any, type: SurveyType = SurveyType.SHORT_ANSWER): FormGroup{
-    return this.fb.group({
-      'type': [type],
-      'model': this.fbs.dataToFormGroup(data, type)
-    })
+    console.dir(!!data ? data.model : InitShortAnswer);
+    this.surveyGroup.push(
+      this.fbs.getSurveyElement(!!data ? data.model : InitShortAnswer, !!data ? data.type : SurveyType.SHORT_ANSWER)
+    )
   }
 
   addQuestion(){
     this.surveyGroup.push(
-      this.getSurveyElement(InitShortAnswer)
+      this.fbs.getSurveyElement(InitShortAnswer)
     )
   }
 
   consoler(){
-    console.dir(this.surveyGroup.value);
-    localStorage.setItem('asd', JSON.stringify(this.surveyGroup.value[0]))
+    console.dir(this.surveyGroup)
+    // localStorage.setItem('asd', JSON.stringify(this.surveyGroup.value[0]))
   }
 
 }

@@ -6,3 +6,14 @@ export interface RadioAnswer {
 export interface RadioAnswerData extends BaseAnswer {
   variants: string[];
 }
+
+export let InitRadioAnswer: RadioAnswer = {
+  formData: {
+    title: 'New Question',
+    description: '',
+    required: false,
+    variants: [
+      'Option 1'
+    ]
+  }
+};

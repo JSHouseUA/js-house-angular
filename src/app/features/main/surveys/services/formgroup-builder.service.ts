@@ -33,8 +33,8 @@ export class FormGroupBuilderService {
   private shortAnswer(data: ShortAnswer): FormGroup {
     const baseGroup: FormGroup = this.baseAnswerFields(data),
       formData = <FormGroup>baseGroup.controls.formData;
-    formData.addControl('maxLength', this.fb.control(data.formData.placeholder));
-    formData.addControl('placeholder', this.fb.control(data.formData.maxLength, Validators.required));
+    formData.addControl('placeholder', this.fb.control(data.formData.placeholder));
+    formData.addControl('maxLength', this.fb.control(data.formData.maxLength, Validators.required));
     baseGroup.addControl('regex', this.fb.group({
       'flags': this.fb.array(data.regex.flags),
       'name': [data.regex.name],
@@ -48,5 +48,12 @@ export class FormGroupBuilderService {
       formData = <FormGroup>baseGroup.controls.formData;
     formData.addControl('variants', this.fb.array(data.formData.variants));
     return baseGroup;
+  }
+
+  getSurveyElement(data: any, type: SurveyType = SurveyType.SHORT_ANSWER): FormGroup{
+    return this.fb.group({
+      'type': [type],
+      'model': this.dataToFormGroup(data, type)
+    })
   }
 }

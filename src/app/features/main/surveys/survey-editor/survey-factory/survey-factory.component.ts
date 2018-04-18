@@ -4,6 +4,9 @@ import {DynamicContainer} from '../../../../../core/directives/dynamic-container
 import {ShortAnswerComponent} from '../short-answer/short-answer.component';
 import {FormGroup} from '@angular/forms';
 import {CommonAnswerComponent} from './common-answer.component';
+import {FormGroupBuilderService} from '../../services/formgroup-builder.service';
+import {InitShortAnswer} from '../../../../../shared/models/survey/short-answer';
+import {InitRadioAnswer} from '../../../../../shared/models/survey/radio-answer';
 import {RadioAnswerComponent} from '../radio-answer/radio-answer.component';
 
 @Component({
@@ -25,20 +28,23 @@ export class SurveyFactoryComponent implements OnInit {
   type: SurveyType;//this.control.controls.type.value;
 
   constructor(
-    private cfr: ComponentFactoryResolver
+    private cfr: ComponentFactoryResolver,
+    private fbs: FormGroupBuilderService
   ) { }
 
   ngOnInit() {
     this.type = <SurveyType>this.control.controls.type.value;
-    this.onTypeChange(this.type);
+    this.onTypeChange(this.type, false);
   }
 
-  onTypeChange(type: SurveyType){
+  onTypeChange(type: SurveyType, newChanging: boolean = true){
     switch (type) {
       case SurveyType.SHORT_ANSWER:
+        if (newChanging) this.control = this.fbs.getSurveyElement(InitShortAnswer, type);
         this.loadComponent(ShortAnswerComponent);
         break;
       case SurveyType.RADIO:
+        if (newChanging) this.control = this.fbs.getSurveyElement(InitRadioAnswer, type);
         this.loadComponent(RadioAnswerComponent);
         break;
     }
@@ -51,6 +57,7 @@ export class SurveyFactoryComponent implements OnInit {
     let componentRef = viewContainerRef.createComponent(componentFactory),
       componentInstance: CommonAnswerComponent = <any>componentRef.instance;
     componentInstance.formData = <FormGroup>this.control.controls.model;
+
     componentInstance.init();
   }
 

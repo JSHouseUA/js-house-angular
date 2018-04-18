@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {PreparedRegex} from "../../../../../shared/models/ui/regex";
 import {CommonAnswerComponent} from '../survey-factory/common-answer.component';
@@ -8,7 +8,10 @@ import {CommonAnswerComponent} from '../survey-factory/common-answer.component';
   templateUrl: './short-answer.component.html',
   styleUrls: ['./short-answer.component.css']
 })
-export class ShortAnswerComponent extends CommonAnswerComponent implements OnInit {
+export class ShortAnswerComponent extends CommonAnswerComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    console.log('aaa')
+  }
 
   @ViewChild('regexSelect') regexSelect: NgForm;
   @ViewChild('regexForm') regexForm: NgForm;
