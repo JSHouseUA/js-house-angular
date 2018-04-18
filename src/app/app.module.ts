@@ -6,6 +6,7 @@ import { SharedModule} from "./shared/shared.module";
 
 import { AppComponent } from './app.component';
 import {FeatureModule} from "./features/feature.module";
+import {CoreModule} from './core/core.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import {FeatureModule} from "./features/feature.module";
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
+    CoreModule,
     FeatureModule
   ],
   providers: [],
