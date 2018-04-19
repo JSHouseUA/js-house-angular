@@ -25,7 +25,7 @@ export class SurveyFactoryComponent implements OnInit {
   @ViewChild(DynamicContainer) dynamicCompContainer: DynamicContainer;
 
   @Input() control: FormGroup;
-  @Input() parent: HTMLElement;
+  @Input() overlay: HTMLElement;
   type: SurveyType;//this.control.controls.type.value;
 
   constructor(

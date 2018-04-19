@@ -3,7 +3,7 @@
 </p>
 <!--<app-short-answer *ngFor="let group of surveyGroup.controls" [formData]="group"></app-short-answer>-->
 <div #overlay class="overlay">
-  <app-survey-factory *ngFor="let group of surveyGroup.controls" [parent]="overlay" [control]="group"></app-survey-factory>
+  <app-survey-factory *ngFor="let group of surveyGroup.controls" [overlay]="overlay" [control]="group"></app-survey-factory>
 </div>
 <button (click)="save()">consoler</button>
 <button (click)="addQuestion()">CLICK</button>

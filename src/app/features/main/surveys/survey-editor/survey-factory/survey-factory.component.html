@@ -1,6 +1,6 @@
-<div>
+<div #parent class="parent">
   <div>
-    <div drag-n-drop [parent]="parent" (dragStart)="consoler($event)">dragger</div>
+    <div drag-n-drop [parent]="parent" [overlay]="overlay" (dragStart)="consoler($event)">dragger</div>
     <mat-form-field>
       <mat-select placeholder="Type" name="flags" [(ngModel)]="type" (ngModelChange)="onTypeChange($event)">
         <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
