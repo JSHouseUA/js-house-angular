@@ -8,7 +8,6 @@ import {FormGroupBuilderService} from '../../services/formgroup-builder.service'
 import {InitShortAnswer} from '../../../../../shared/models/survey/short-answer';
 import {InitRadioAnswer} from '../../../../../shared/models/survey/radio-answer';
 import {RadioAnswerComponent} from '../radio-answer/radio-answer.component';
-import {Coordinates} from 'angular-draggable-droppable/draggable.directive';
 
 @Component({
   selector: 'app-survey-factory',
