@@ -8,6 +8,7 @@ import {SurveyFactoryComponent} from './survey-editor/survey-factory/survey-fact
 import {FormGroupBuilderService} from './services/formgroup-builder.service';
 import {DynamicContainer} from '../../../core/directives/dynamic-container';
 import { RadioAnswerComponent } from './survey-editor/radio-answer/radio-answer.component';
+import {DragNDrop} from '../../../core/directives/drag-n-drop';
 
 const routes: Routes = [
   {path: '', component: SurveysComponent},
@@ -17,7 +18,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
   ],
   declarations: [
     SurveysComponent,
@@ -25,7 +26,8 @@ const routes: Routes = [
     ShortAnswerComponent,
     SurveyFactoryComponent,
     DynamicContainer,
-    RadioAnswerComponent
+    RadioAnswerComponent,
+    DragNDrop
   ],
   entryComponents: [
     ShortAnswerComponent,

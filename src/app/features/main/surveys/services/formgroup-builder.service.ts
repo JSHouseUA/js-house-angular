@@ -16,6 +16,13 @@ export class FormGroupBuilderService {
       case SurveyType.RADIO:
         return this.radioOrCheckboxAnswer(data);
       case SurveyType.CHECKBOX:
+        //TODO: Часть для Александра
+        return this.radioOrCheckboxAnswer(data);
+      case SurveyType.LONG_ANSWER:
+        //TODO: Часть для Александра
+        return this.radioOrCheckboxAnswer(data);
+      case SurveyType.SELECT:
+        //TODO: Часть для Александра
         return this.radioOrCheckboxAnswer(data);
     }
   }
@@ -48,6 +55,15 @@ export class FormGroupBuilderService {
       formData = <FormGroup>baseGroup.controls.formData;
     formData.addControl('variants', this.fb.array(data.formData.variants));
     return baseGroup;
+  }
+
+  resetSurveyElement(formGroup: FormGroup, data: any, type: SurveyType = SurveyType.SHORT_ANSWER): void{
+    formGroup.setControl('type', this.fb.control(type));
+    formGroup.setControl('model', this.dataToFormGroup(data, type))
+    // return this.fb.group({
+    //   'type': [type],
+    //   'model': this.dataToFormGroup(data, type)
+    // })
   }
 
   getSurveyElement(data: any, type: SurveyType = SurveyType.SHORT_ANSWER): FormGroup{

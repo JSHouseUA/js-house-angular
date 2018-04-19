@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {SurveyType} from '../../../../../shared/models/survey/type';
 import {DynamicContainer} from '../../../../../core/directives/dynamic-container';
 import {ShortAnswerComponent} from '../short-answer/short-answer.component';
@@ -8,6 +8,7 @@ import {FormGroupBuilderService} from '../../services/formgroup-builder.service'
 import {InitShortAnswer} from '../../../../../shared/models/survey/short-answer';
 import {InitRadioAnswer} from '../../../../../shared/models/survey/radio-answer';
 import {RadioAnswerComponent} from '../radio-answer/radio-answer.component';
+import {Coordinates} from 'angular-draggable-droppable/draggable.directive';
 
 @Component({
   selector: 'app-survey-factory',
@@ -25,6 +26,7 @@ export class SurveyFactoryComponent implements OnInit {
   @ViewChild(DynamicContainer) dynamicCompContainer: DynamicContainer;
 
   @Input() control: FormGroup;
+  @Input() parent: HTMLElement;
   type: SurveyType;//this.control.controls.type.value;
 
   constructor(
@@ -40,11 +42,11 @@ export class SurveyFactoryComponent implements OnInit {
   onTypeChange(type: SurveyType, newChanging: boolean = true){
     switch (type) {
       case SurveyType.SHORT_ANSWER:
-        if (newChanging) this.control = this.fbs.getSurveyElement(InitShortAnswer, type);
+        if (newChanging) this.fbs.resetSurveyElement(this.control, InitShortAnswer, type);
         this.loadComponent(ShortAnswerComponent);
         break;
       case SurveyType.RADIO:
-        if (newChanging) this.control = this.fbs.getSurveyElement(InitRadioAnswer, type);
+        if (newChanging) this.fbs.resetSurveyElement(this.control, InitRadioAnswer, type);
         this.loadComponent(RadioAnswerComponent);
         break;
     }
@@ -59,6 +61,13 @@ export class SurveyFactoryComponent implements OnInit {
     componentInstance.formData = <FormGroup>this.control.controls.model;
 
     componentInstance.init();
+  }
+
+  // onMouseDown(event: MouseEvent, parent: HTMLElement){
+  //  console.dir(parent.parentElement.parentElement)
+  // }
+  consoler(e){
+    console.dir(e)
   }
 
 }

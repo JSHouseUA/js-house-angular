@@ -1,10 +1,13 @@
 <div>
-  <mat-form-field>
-    <mat-select placeholder="Type" name="flags" [(ngModel)]="type" (ngModelChange)="onTypeChange($event)">
-      <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div>
+    <div drag-n-drop [parent]="parent" (dragStart)="consoler($event)">dragger</div>
+    <mat-form-field>
+      <mat-select placeholder="Type" name="flags" [(ngModel)]="type" (ngModelChange)="onTypeChange($event)">
+        <mat-option *ngFor="let type of types" [value]="type">{{type}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <ng-template dynamic-cont>
+    <!--Place for dynamic reactive Form-->
+  </ng-template>
 </div>
-<ng-template dynamic-cont>
-
-</ng-template>

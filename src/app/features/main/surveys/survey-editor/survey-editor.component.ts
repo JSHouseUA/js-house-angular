@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SurveyType} from '../../../../shared/models/survey/type';
 import {FormGroupBuilderService} from '../services/formgroup-builder.service';
 import {InitShortAnswer} from '../../../../shared/models/survey/short-answer';
+import {Question} from '../../../../shared/models/survey/base-answer';
 
 @Component({
   selector: 'app-survey-editor',
@@ -15,12 +16,10 @@ export class SurveyEditorComponent implements OnInit {
     private fbs: FormGroupBuilderService
   ) { }
 
-  shortAnswer: FormGroup = new FormGroup({});
 
-  surveyGroup: FormGroup[] = [];
+  surveyGroup: FormArray = new FormArray([]);
 
   asd(): void {
-    console.dir(this.shortAnswer)
   }
 
 
@@ -29,11 +28,18 @@ export class SurveyEditorComponent implements OnInit {
   }
 
   buildInitSurvey(){
-    let data = JSON.parse(localStorage.getItem('asd'));
-    console.dir(!!data ? data.model : InitShortAnswer);
-    this.surveyGroup.push(
-      this.fbs.getSurveyElement(!!data ? data.model : InitShortAnswer, !!data ? data.type : SurveyType.SHORT_ANSWER)
-    )
+    let data = <Array<Question>>JSON.parse(localStorage.getItem('asd'));
+    if (data && data.length > 0){
+      (data).forEach(elem => {
+        this.surveyGroup.push(
+          this.fbs.getSurveyElement(elem.model, elem.type)
+        )
+      })
+    } else {
+      this.surveyGroup.push(
+        this.fbs.getSurveyElement(InitShortAnswer, SurveyType.SHORT_ANSWER)
+      )
+    }
   }
 
   addQuestion(){
@@ -42,9 +48,8 @@ export class SurveyEditorComponent implements OnInit {
     )
   }
 
-  consoler(){
-    console.dir(this.surveyGroup)
-    // localStorage.setItem('asd', JSON.stringify(this.surveyGroup.value[0]))
+  save(){
+    localStorage.setItem('asd', JSON.stringify(this.surveyGroup.value))
   }
 
 }
