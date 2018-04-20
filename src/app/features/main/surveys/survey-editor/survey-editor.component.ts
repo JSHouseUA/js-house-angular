@@ -4,6 +4,7 @@ import {SurveyType} from '../../../../shared/models/survey/type';
 import {FormGroupBuilderService} from '../services/formgroup-builder.service';
 import {InitShortAnswer} from '../../../../shared/models/survey/short-answer';
 import {Question} from '../../../../shared/models/survey/base-answer';
+import {IndexState} from '../../../../core/directives/drag-n-drop';
 
 @Component({
   selector: 'app-survey-editor',
@@ -17,7 +18,7 @@ export class SurveyEditorComponent implements OnInit {
   ) { }
 
 
-  surveyGroup: FormArray = new FormArray([]);
+  surveyGroup: FormGroup[] = [];//FormArray = new FormArray([]);
 
   asd(): void {
   }
@@ -49,7 +50,17 @@ export class SurveyEditorComponent implements OnInit {
   }
 
   save(){
-    localStorage.setItem('asd', JSON.stringify(this.surveyGroup.value))
+    let toSave = this.surveyGroup.map(control => control.value);
+    localStorage.setItem('asd', JSON.stringify(toSave))
+  }
+
+  changeFormArray(indexes: IndexState){
+    const surveyElem = this.surveyGroup.splice(indexes.oldIndex, 1)[0];
+    // let tail = this.surveyGroup.splice(indexes.newIndex);
+    // this.surveyGroup.push(surveyElem);
+    // this.surveyGroup = this.surveyGroup.concat(tail);
+    this.surveyGroup.splice(indexes.newIndex, 0, surveyElem);
+    console.log(indexes)
   }
 
 }

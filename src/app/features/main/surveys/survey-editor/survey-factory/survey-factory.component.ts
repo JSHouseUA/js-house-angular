@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SurveyType} from '../../../../../shared/models/survey/type';
 import {DynamicContainer} from '../../../../../core/directives/dynamic-container';
 import {ShortAnswerComponent} from '../short-answer/short-answer.component';
@@ -8,6 +8,7 @@ import {FormGroupBuilderService} from '../../services/formgroup-builder.service'
 import {InitShortAnswer} from '../../../../../shared/models/survey/short-answer';
 import {InitRadioAnswer} from '../../../../../shared/models/survey/radio-answer';
 import {RadioAnswerComponent} from '../radio-answer/radio-answer.component';
+import {IndexState} from '../../../../../core/directives/drag-n-drop';
 
 @Component({
   selector: 'app-survey-factory',
@@ -26,6 +27,7 @@ export class SurveyFactoryComponent implements OnInit {
 
   @Input() control: FormGroup;
   @Input() overlay: HTMLElement;
+  @Output() changeFormArray = new EventEmitter<IndexState>();
   type: SurveyType;//this.control.controls.type.value;
 
   constructor(
@@ -67,6 +69,9 @@ export class SurveyFactoryComponent implements OnInit {
   // }
   consoler(e){
     console.dir(e)
+  }
+  changeArray(indexes: IndexState){
+    this.changeFormArray.emit(indexes);
   }
 
 }
