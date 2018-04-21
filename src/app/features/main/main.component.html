@@ -24,7 +24,8 @@
 <!--Main content-->
 <ng-template #main>
   <p>
-    <button color="primary" mat-button (click)="sidenav.toggle()">sidenav.toggle() {{sidenav.isOpen}}</button>
+    <button color="primary" mat-button (click)="sidenav.toggle()">Open menu {{sidenav.isOpen}}<mat-icon mat-list-icon>subject
+    </mat-icon></button>
   </p>
 
   <p>{{test}}</p>

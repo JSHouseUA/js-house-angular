@@ -43,7 +43,8 @@
         <mat-option *ngFor="let flag of flags" [value]="flag.value">{{flag.description}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <button (click)="submit(regexForm)">submit</button>
+    <button mat-button color="primary" (click)="submit(regexForm)">submit <mat-icon mat-list-icon class="removel"> reply</mat-icon>
+    </button>
   </form>
 
 </div>

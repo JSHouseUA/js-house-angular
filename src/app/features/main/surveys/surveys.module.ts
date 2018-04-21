@@ -9,6 +9,7 @@ import {FormGroupBuilderService} from './services/formgroup-builder.service';
 import {DynamicContainer} from '../../../core/directives/dynamic-container';
 import { RadioAnswerComponent } from './survey-editor/radio-answer/radio-answer.component';
 import {DragNDrop} from '../../../core/directives/drag-n-drop';
+import { LongAnswerComponent } from './survey-editor/long-answer/long-answer.component';
 
 const routes: Routes = [
   {path: '', component: SurveysComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
     SurveyFactoryComponent,
     DynamicContainer,
     RadioAnswerComponent,
-    DragNDrop
+    DragNDrop,
+    LongAnswerComponent
   ],
   entryComponents: [
     ShortAnswerComponent,
