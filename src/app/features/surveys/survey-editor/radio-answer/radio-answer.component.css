@@ -1,0 +1,15 @@
+.title{
+  margin-top: 0;
+}
+.ret .mat-form-field-wrapper .mat-form-field-infix{
+  display: flex;
+}
+.ret button {
+  width: 20px;
+  min-width: 15%;
+  padding: 0;
+  display: flex;
+}
+.ret button .removel{
+  margin-left: 10px;
+}

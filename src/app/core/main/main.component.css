@@ -1,0 +1,11 @@
+.mat-drawer-container{
+  overflow: visible;
+  min-height: 100%;
+}
+.mat-drawer-content{
+  padding: 10px 50px;
+}
+
+.mat-drawer.mat-drawer-side {
+  height: 100%;
+}
