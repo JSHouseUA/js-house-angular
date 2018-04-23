@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {SurveyType} from '../../../../shared/models/survey/type';
-import {ShortAnswer} from '../../../../shared/models/survey/short-answer';
-import {RadioAnswer} from '../../../../shared/models/survey/radio-answer';
+import {SurveyType} from '../../../shared/models/survey/type';
+import {ShortAnswer} from '../../../shared/models/survey/short-answer';
+import {RadioAnswer} from '../../../shared/models/survey/radio-answer';
 
 @Injectable()
 export class FormGroupBuilderService {

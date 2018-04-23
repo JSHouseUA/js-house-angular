@@ -1,21 +1,29 @@
-import {RouterModule, Routes} from "@angular/router";
-import {ModuleWithProviders, NgModule, NO_ERRORS_SCHEMA} from "@angular/core";
+import {RouterModule, Routes} from '@angular/router';
+import {ModuleWithProviders, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
+import {HomeComponent} from './home/home.component';
+import {SharedModule} from '../shared/shared.module';
 
 const routes: Routes = [
-  {path: 'login', loadChildren: './login/login.module#LoginModule'},
-  {path: '', loadChildren: './main/main.module#MainModule'},
-  {path: '**', redirectTo: ''},
+  {path: '', component: HomeComponent},
+  {path: 'users', loadChildren: './users/users.module#UsersModule'},
+  {path: 'stats', loadChildren: './statistics/statistics.module#StatisticsModule'},
+  {path: 'events', loadChildren: './events/events.module#EventsModule'},
+  {path: 'surveys', loadChildren: './surveys/surveys.module#SurveysModule'},
+  {path: 'settings', loadChildren: './settings/settings.module#SettingsModule'},
 ];
+
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes),
+    SharedModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [
+    HomeComponent
   ],
   exports: [
     RouterModule
   ],
-  providers: [
-
-  ],
+  providers: [],
   schemas: [
     NO_ERRORS_SCHEMA
   ]
@@ -24,10 +32,10 @@ export class FeatureModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: FeatureModule,
-      providers : [
+      providers: [
         // AuthGuard,
         // UserService
       ]
-    }
+    };
   }
 }

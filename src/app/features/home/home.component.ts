@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MenuService} from "../main.services/menu.service";
+import {MenuService} from "../../core/main/main.services/menu.service";
 
 @Component({
   selector: 'app-home',

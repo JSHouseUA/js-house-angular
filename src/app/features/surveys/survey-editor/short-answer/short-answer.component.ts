@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
-import {PreparedRegex} from "../../../../../shared/models/ui/regex";
+import {PreparedRegex} from "../../../../shared/models/ui/regex";
 import {CommonAnswerComponent} from '../survey-factory/common-answer.component';
 
 @Component({
