@@ -6,8 +6,7 @@ import {
   Input, OnDestroy,
   OnInit,
   Output,
-  Renderer2,
-  ViewContainerRef
+  Renderer2
 } from '@angular/core';
 
 interface Coordinates {
@@ -21,7 +20,7 @@ export interface IndexState {
 }
 
 enum AddStub {
-  addBefore, addAfter, removeAndAddBefore, removeAndAddAfter, nothing
+  addBefore, addAfter, removeAndAddBefore, removeAndAddAfter, nothing, addAtStart
 }
 
 @Directive({
@@ -52,6 +51,7 @@ export class DragNDrop implements OnInit, OnDestroy {
 
   @Input() overlay: HTMLElement;
   @Input() parent: HTMLElement;
+  @Input() selector: string;
   @Output() dragStart = new EventEmitter<any>();
   @Output() dragging = new EventEmitter<any>();
   @Output() dragEnd = new EventEmitter<IndexState>();
@@ -74,7 +74,6 @@ export class DragNDrop implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.element = this.er.nativeElement;
     if (!this.parent) this.parent = this.element;
-    this.addEventListenerForWindow();
     this.overlay.style.position = 'relative';
   }
 
@@ -85,7 +84,8 @@ export class DragNDrop implements OnInit, OnDestroy {
   @HostListener('mousedown', ['$event']) mousedown(event: Event) {
     this.dragEnded = false;
     this.initIndex = this.elemIndex(this.parent);
-    this.overlay.addEventListener('mousemove', this.onParentMove);
+    window.addEventListener('mousemove', this.onParentMove);
+    this.addEventListenerForWindow();
   }
 
   addEventListenerForWindow() {
@@ -94,6 +94,7 @@ export class DragNDrop implements OnInit, OnDestroy {
 
   removeEventListenerForWindow() {
     window.removeEventListener('mouseup', this.windowMouseUp);
+    window.removeEventListener('mousemove', this.onParentMove);
   }
 
   //@HostListener('mouseup', ['$event'])
@@ -107,30 +108,28 @@ export class DragNDrop implements OnInit, OnDestroy {
     if (!this.dragStarted && this.dragEnded) return;
     this.dragStarted = false;
     this.dragEnded = true;
-    this.overlay.removeEventListener('mousemove', this.onParentMove);
+    this.removeEventListenerForWindow();
     this.parent.style.position = `static`;
     this.dragStartedCoords = {x: 0, y: 0};
-    this.parent.style.transform = `translate3d(0,0,0)`;
+    // this.parent.style.transform = `translate3d(0,0,0)`;
     this.parent.style.top = `${0}px`;
     this.parent.style.pointerEvents = `auto`;
 
+    if (this.initIndex === undefined) this.initIndex = this.elemIndex(this.parent);
     let stub = <HTMLElement>this.overlay.getElementsByClassName('stub')[0],
       stubIndex = this.elemIndex(stub),
       newIndex = stubIndex > this.initIndex ? --stubIndex : stubIndex;
+
+    if (stub) stub.remove();
     if (~stubIndex && this.initIndex != newIndex) this.dragEnd.emit({
       oldIndex: this.initIndex,
       newIndex
     });
-
-
-    if (stub) stub.remove();
-
     this.parent.classList.remove('drugging');
   }
 
   mouseMoveOnParent(event: MouseEvent) {
     const {clientX: x, clientY: y} = event;
-
     if (!this.dragStarted) {
       this.dragStart.emit('started');
       this.dragStarted = true;
@@ -144,13 +143,13 @@ export class DragNDrop implements OnInit, OnDestroy {
     let yPos = y - overlayRect.top;
     this.parent.style.top = `${yPos < 0
       ? 0
-      : overlayRect.bottom - y < this.parentHeight / 2
+      : overlayRect.bottom - y < this.parentHeight
         ? overlayRect.bottom - this.parentHeight - overlayRect.top
         : yPos}px`;
 
-    this.sibling = <HTMLElement>(<HTMLElement>event.target).closest('app-survey-factory');
+    this.sibling = <HTMLElement>(<HTMLElement>event.target).closest(this.selector);
+    console.log(this.sibling);
     let stub = this.overlay.getElementsByClassName('stub')[0];
-
     switch (this.actionWithStub(y)) {
       case AddStub.removeAndAddAfter:
         stub.remove();
@@ -166,13 +165,23 @@ export class DragNDrop implements OnInit, OnDestroy {
       case AddStub.addBefore:
         this.overlay.insertBefore(this.stubElem, this.sibling);
         break;
+      case AddStub.addAtStart:
+        if (stub) stub.remove();
+        this.overlay.insertBefore(this.stubElem, this.overlay.children[0]);
+        break;
       case AddStub.nothing:
         break;
     }
   }
 
   actionWithStub(y: number): AddStub {
-    if (!this.sibling) return;
+    if (!this.sibling) {
+      let overlayRect = this.overlay.getBoundingClientRect(),
+        yPos = y - overlayRect.top;
+      return yPos <= 0
+        ? AddStub.addAtStart
+        : AddStub.nothing;
+    }
 
     const siblingRect = this.sibling.getBoundingClientRect(),
       siblingTop = siblingRect.top,
@@ -180,13 +189,15 @@ export class DragNDrop implements OnInit, OnDestroy {
       parentTop = this.overlay.getBoundingClientRect().top,
       stub = this.overlay.getElementsByClassName('stub')[0];
 
+    // console.log(y)
     return stub
-      ? stub.nextSibling == this.sibling && y - siblingTop + parentTop - this.parentHeight < siblingHeight && y - siblingTop + parentTop - this.parentHeight > siblingHeight / 2
-        ? AddStub.removeAndAddAfter
-        // : AddStub.removeAndAddBefore
-        : (this.sibling.nextSibling == stub || this.sibling.nextSibling == this.parent) && y - siblingTop + parentTop - this.parentHeight < siblingHeight / 2
-          ? AddStub.removeAndAddBefore
-          : AddStub.nothing
+      ? AddStub.removeAndAddAfter
+      // ? stub.nextSibling == this.sibling && y - siblingTop + parentTop - this.parentHeight < siblingHeight && y - siblingTop + parentTop - this.parentHeight > siblingHeight / 2
+      //   ? AddStub.removeAndAddAfter
+      //   : AddStub.removeAndAddBefore
+      // : (this.sibling.nextSibling == stub || this.sibling.nextSibling == this.parent) && y - siblingTop + parentTop - this.parentHeight < siblingHeight / 2
+      //   ? AddStub.removeAndAddBefore
+      //   : AddStub.nothing
       : y - siblingTop + parentTop < siblingHeight / 2
         ? AddStub.addBefore
         : AddStub.addAfter;

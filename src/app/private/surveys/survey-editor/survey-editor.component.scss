@@ -1,0 +1,13 @@
+button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+app-survey-factory {
+  width: 100%;
+  &.drugging {
+    background: #fff;
+    z-index: 9;
+    opacity: .8;
+  }
+}

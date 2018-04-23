@@ -13,14 +13,20 @@
 
     <mat-checkbox formControlName="required">required</mat-checkbox>
 
-    <div formArrayName="variants">
+    <div formArrayName="variants" #overlay class="overlay">
       <div *ngFor="let variant of variants.controls; index as i"  class="ret">
-        <mat-form-field class="ret">
-          <mat-radio-button [disabled]="true"></mat-radio-button>
-          <input matInput [formControlName]="i" placeholder="Option">
-          <button mat-button color="primary" type="button" (click)="remove(i)"> <mat-icon mat-list-icon class="remove"> delete</mat-icon>
-          </button>
-        </mat-form-field>
+        <div class="parent" #parent>
+
+          <div class="drugger" drag-n-drop [parent]="parent.parentNode" [selector]="'div.ret'" [overlay]="overlay" (dragEnd)="changeArray($event)" draggable="true">dragger</div>
+
+          <mat-form-field class="ret">
+            <mat-radio-button [disabled]="true"></mat-radio-button>
+            <input matInput [formControlName]="i" placeholder="Option">
+            <button mat-button color="primary" type="button" (click)="remove(i)"> <mat-icon mat-list-icon class="remove"> delete</mat-icon>
+            </button>
+          </mat-form-field>
+
+        </div>
       </div>
       <button mat-raised-button color="primary" type="button" (click)="add()">add <mat-icon mat-list-icon class="removel">check box
 

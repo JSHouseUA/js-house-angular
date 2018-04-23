@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {SurveyType} from '../../../shared/models/survey/type';
 import {FormGroupBuilderService} from '../services/formgroup-builder.service';
 import {InitShortAnswer} from '../../../shared/models/survey/short-answer';
 import {Question} from '../../../shared/models/survey/base-answer';
 import {IndexState} from '../../../shared/directives/drag-n-drop';
+import {ReactiveFormUtil} from '../../../shared/utils/reactive-form.util';
 
 @Component({
   selector: 'app-survey-editor',
   templateUrl: './survey-editor.component.html',
-  styleUrls: ['./survey-editor.component.css']
+  styleUrls: ['./survey-editor.component.scss']
 })
 export class SurveyEditorComponent implements OnInit {
   constructor(private fb: FormBuilder,
@@ -19,9 +20,9 @@ export class SurveyEditorComponent implements OnInit {
 
   /**
    * Contain the survey questions
-   * @type {FormArray[]}
+   * @type {FormArray}
    */
-  surveyGroup: FormGroup[] = [];//FormArray = new FormArray([]);
+  surveyGroup: FormArray = new FormArray([]);//FormGroup[] = [];
 
   ngOnInit(): void {
     this.buildInitSurvey();
@@ -58,8 +59,8 @@ export class SurveyEditorComponent implements OnInit {
    * Should create a request, now it is fake stub
    */
   save(): void {
-    let toSave = this.surveyGroup.map(control => control.value);
-    localStorage.setItem('asd', JSON.stringify(toSave));
+    // let toSave = this.surveyGroup.map(control => control.value);
+    localStorage.setItem('asd', JSON.stringify(this.surveyGroup.value));
   }
 
   /**
@@ -68,12 +69,12 @@ export class SurveyEditorComponent implements OnInit {
    * @param {IndexState} indexes
    */
   changeFormArray(indexes: IndexState) {
-    const surveyElem = this.surveyGroup.splice(indexes.oldIndex, 1)[0];
+    // const surveyElem = this.surveyGroup.splice(indexes.oldIndex, 1)[0];
+    const surveyElem = ReactiveFormUtil.splice(this.surveyGroup, indexes.oldIndex, 1)[0];
+    ReactiveFormUtil.splice(this.surveyGroup, indexes.newIndex, 0, surveyElem);
     // let tail = this.surveyGroup.splice(indexes.newIndex);
     // this.surveyGroup.push(surveyElem);
     // this.surveyGroup = this.surveyGroup.concat(tail);
-    this.surveyGroup.splice(indexes.newIndex, 0, surveyElem);
-    console.log(indexes);
   }
 
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SurveyType} from '../../../shared/models/survey/type';
 import {ShortAnswer} from '../../../shared/models/survey/short-answer';
 import {RadioAnswer} from '../../../shared/models/survey/radio-answer';
@@ -57,19 +57,19 @@ export class FormGroupBuilderService {
     return baseGroup;
   }
 
-  resetSurveyElement(formGroup: FormGroup, data: any, type: SurveyType = SurveyType.SHORT_ANSWER): void{
+  resetSurveyElement(formGroup: FormGroup, data: any, type: SurveyType = SurveyType.SHORT_ANSWER): void {
     formGroup.setControl('type', this.fb.control(type));
-    formGroup.setControl('model', this.dataToFormGroup(data, type))
+    formGroup.setControl('model', this.dataToFormGroup(data, type));
     // return this.fb.group({
     //   'type': [type],
     //   'model': this.dataToFormGroup(data, type)
     // })
   }
 
-  getSurveyElement(data: any, type: SurveyType = SurveyType.SHORT_ANSWER): FormGroup{
+  getSurveyElement(data: any, type: SurveyType = SurveyType.SHORT_ANSWER): FormGroup {
     return this.fb.group({
       'type': [type],
       'model': this.dataToFormGroup(data, type)
-    })
+    });
   }
 }

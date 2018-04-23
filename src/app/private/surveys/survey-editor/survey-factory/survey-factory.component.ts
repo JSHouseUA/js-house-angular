@@ -13,7 +13,7 @@ import {IndexState} from '../../../../shared/directives/drag-n-drop';
 @Component({
   selector: 'app-survey-factory',
   templateUrl: './survey-factory.component.html',
-  styleUrls: ['./survey-factory.component.css']
+  styleUrls: ['./survey-factory.component.scss']
 })
 export class SurveyFactoryComponent implements OnInit {
 

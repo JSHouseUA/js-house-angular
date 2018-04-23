@@ -1,6 +1,8 @@
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 import {CommonAnswerComponent} from '../survey-factory/common-answer.component';
 import {FormArray, FormBuilder} from '@angular/forms';
+import {IndexState} from '../../../../shared/directives/drag-n-drop';
+import {ReactiveFormUtil} from '../../../../shared/utils/reactive-form.util';
 
 @Component({
   selector: 'app-radio-answer',
@@ -26,9 +28,14 @@ export class RadioAnswerComponent extends CommonAnswerComponent implements OnIni
   }
 
   add(){
-      console.log(this.formData)
     const variantsArray: FormArray = (<FormArray>this.answerForm.get('variants'));
     variantsArray.push(this.fb.control(`Option ${variantsArray.length + 1}`))
+  }
+
+  changeArray(indexes: IndexState){
+    const variantsArray: FormArray = (<FormArray>this.answerForm.get('variants'));
+    const surveyElem = ReactiveFormUtil.splice(variantsArray, indexes.oldIndex, 1)[0];
+    ReactiveFormUtil.splice(variantsArray, indexes.newIndex, 0, surveyElem);
   }
 
 }
