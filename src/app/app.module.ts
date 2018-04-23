@@ -5,8 +5,8 @@ import { NgModule } from '@angular/core';
 import { SharedModule} from "./shared/shared.module";
 
 import { AppComponent } from './app.component';
-import {FeatureModule} from "./features/feature.module";
 import {CoreModule} from './core/core.module';
+import {PrivateModule} from './private/private.module';
 
 
 @NgModule({
@@ -18,7 +18,7 @@ import {CoreModule} from './core/core.module';
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
-    FeatureModule
+    PrivateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

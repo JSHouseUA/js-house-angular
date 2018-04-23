@@ -1,10 +1,10 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {SurveyType} from '../../../shared/models/survey/type';
 import {FormGroupBuilderService} from '../services/formgroup-builder.service';
 import {InitShortAnswer} from '../../../shared/models/survey/short-answer';
 import {Question} from '../../../shared/models/survey/base-answer';
-import {IndexState} from '../../../core/directives/drag-n-drop';
+import {IndexState} from '../../../shared/directives/drag-n-drop';
 
 @Component({
   selector: 'app-survey-editor',

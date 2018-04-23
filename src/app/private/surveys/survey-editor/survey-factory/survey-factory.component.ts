@@ -1,6 +1,6 @@
 import {Component, ComponentFactoryResolver, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SurveyType} from '../../../../shared/models/survey/type';
-import {DynamicContainer} from '../../../../core/directives/dynamic-container';
+import {DynamicContainer} from '../../../../shared/directives/dynamic-container';
 import {ShortAnswerComponent} from '../short-answer/short-answer.component';
 import {FormGroup} from '@angular/forms';
 import {CommonAnswerComponent} from './common-answer.component';
@@ -8,7 +8,7 @@ import {FormGroupBuilderService} from '../../services/formgroup-builder.service'
 import {InitShortAnswer} from '../../../../shared/models/survey/short-answer';
 import {InitRadioAnswer} from '../../../../shared/models/survey/radio-answer';
 import {RadioAnswerComponent} from '../radio-answer/radio-answer.component';
-import {IndexState} from '../../../../core/directives/drag-n-drop';
+import {IndexState} from '../../../../shared/directives/drag-n-drop';
 
 @Component({
   selector: 'app-survey-factory',

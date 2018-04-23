@@ -28,10 +28,10 @@ const routes: Routes = [
     NO_ERRORS_SCHEMA
   ]
 })
-export class FeatureModule {
+export class PrivateModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: FeatureModule,
+      ngModule: PrivateModule,
       providers: [
         // AuthGuard,
         // UserService

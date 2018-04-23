@@ -7,9 +7,9 @@ import {SurveyFactoryComponent} from './survey-editor/survey-factory/survey-fact
 import {FormGroupBuilderService} from './services/formgroup-builder.service';
 import { RadioAnswerComponent } from './survey-editor/radio-answer/radio-answer.component';
 import {SharedModule} from '../../shared/shared.module';
-import {DynamicContainer} from '../../core/directives/dynamic-container';
+import {DynamicContainer} from '../../shared/directives/dynamic-container';
 import {LongAnswerComponent} from './survey-editor/long-answer/long-answer.component';
-import {DragNDrop} from '../../core/directives/drag-n-drop';
+import {DragNDrop} from '../../shared/directives/drag-n-drop';
 
 const routes: Routes = [
   {path: '', component: SurveysComponent},
