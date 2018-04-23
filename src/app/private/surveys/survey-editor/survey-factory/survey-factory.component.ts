@@ -17,30 +17,58 @@ import {IndexState} from '../../../../shared/directives/drag-n-drop';
 })
 export class SurveyFactoryComponent implements OnInit {
 
+  /**
+   * List of types of questions
+   * @type {SurveyType[]}
+   */
   types: SurveyType[] = [
     SurveyType.SHORT_ANSWER,
     SurveyType.LONG_ANSWER,
     SurveyType.CHECKBOX,
     SurveyType.RADIO
   ];
+  /**
+   * Directive [dynamic-cont] marks place, where dynamic question component will be added
+   * @type {DynamicContainer}
+   */
   @ViewChild(DynamicContainer) dynamicCompContainer: DynamicContainer;
-
+  /**
+   * Controller of form array that contains {FormGroup} data of current question
+   * @type {FormGroup}
+   */
   @Input() control: FormGroup;
+  /**
+   * Container of parent component, where drag-n-drop should be used
+   * @type {HTMLElement}
+   */
   @Input() overlay: HTMLElement;
+  /**
+   * Is listened by parent component, emits ending of drag-n-drop
+   * @type {EventEmitter<IndexState>}
+   */
   @Output() changeFormArray = new EventEmitter<IndexState>();
+  /**
+   * Type of current question
+   * @type {SurveyType}
+   */
   type: SurveyType;//this.control.controls.type.value;
 
-  constructor(
-    private cfr: ComponentFactoryResolver,
-    private fbs: FormGroupBuilderService
-  ) { }
+  constructor(private cfr: ComponentFactoryResolver,
+              private fbs: FormGroupBuilderService) {
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.type = <SurveyType>this.control.controls.type.value;
     this.onTypeChange(this.type, false);
   }
 
-  onTypeChange(type: SurveyType, newChanging: boolean = true){
+  /**
+   * Loads dynamic component
+   * If newChanging is true - changes model of FormGroup
+   * @param {SurveyType} type
+   * @param {boolean} newChanging
+   */
+  onTypeChange(type: SurveyType, newChanging: boolean = true) {
     switch (type) {
       case SurveyType.SHORT_ANSWER:
         if (newChanging) this.fbs.resetSurveyElement(this.control, InitShortAnswer, type);
@@ -53,7 +81,14 @@ export class SurveyFactoryComponent implements OnInit {
     }
   }
 
-  loadComponent(component){
+  /**
+   * Creates instance of new dynamic component
+   * adds it to dom
+   * inserts formData of component
+   * runs method .init() to build form in a dynamic component
+   * @param component
+   */
+  loadComponent(component): void {
     let componentFactory = this.cfr.resolveComponentFactory(component);
     let viewContainerRef = this.dynamicCompContainer.viewContainerRef;
     viewContainerRef.clear();
@@ -64,13 +99,20 @@ export class SurveyFactoryComponent implements OnInit {
     componentInstance.init();
   }
 
-  // onMouseDown(event: MouseEvent, parent: HTMLElement){
-  //  console.dir(parent.parentElement.parentElement)
-  // }
-  consoler(e){
-    console.dir(e)
+  /**
+   * Mother fucker
+   * @param e
+   */
+  consoler(e): void {
+    console.dir(e);
   }
-  changeArray(indexes: IndexState){
+
+  /**
+   * Runs after drug-n-drop end event
+   * Call method of parent component
+   * @param {IndexState} indexes
+   */
+  changeArray(indexes: IndexState): void {
     this.changeFormArray.emit(indexes);
   }
 
