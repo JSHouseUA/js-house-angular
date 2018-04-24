@@ -1,3 +1,22 @@
-<p>
-  long-answer works!
-</p>
+<div *ngIf="answerForm">
+  <form [formGroup]="answerForm">
+    <mat-form-field>
+      <input matInput placeholder="Question" formControlName="title">
+    </mat-form-field>
+
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Short description" formControlName="description">-->
+    <!--</mat-form-field>-->
+
+    <!--&lt;!&ndash;<mat-form-field>&ndash;&gt;-->
+      <!--&lt;!&ndash;<input matInput placeholder="placeholder" formControlName="placeholder">&ndash;&gt;-->
+    <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+
+    <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Answer max length" type="number" min="50" formControlName="maxLength">-->
+    <!--</mat-form-field>-->
+
+    <!--<mat-checkbox formControlName="required">required</mat-checkbox>-->
+
+  </form>
+</div>

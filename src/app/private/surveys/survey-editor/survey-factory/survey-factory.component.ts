@@ -9,6 +9,8 @@ import {InitShortAnswer} from '../../../../shared/models/survey/short-answer';
 import {InitRadioAnswer} from '../../../../shared/models/survey/radio-answer';
 import {RadioAnswerComponent} from '../radio-answer/radio-answer.component';
 import {IndexState} from '../../../../shared/directives/drag-n-drop';
+import {LongAnswerComponent} from "../long-answer/long-answer.component";
+import {InitLongAnswer} from "../../../../shared/models/survey/long-answer";
 
 @Component({
   selector: 'app-survey-factory',
@@ -73,11 +75,18 @@ export class SurveyFactoryComponent implements OnInit {
       case SurveyType.SHORT_ANSWER:
         if (newChanging) this.fbs.resetSurveyElement(this.control, InitShortAnswer, type);
         this.loadComponent(ShortAnswerComponent);
+          console.log(type)
         break;
       case SurveyType.RADIO:
         if (newChanging) this.fbs.resetSurveyElement(this.control, InitRadioAnswer, type);
         this.loadComponent(RadioAnswerComponent);
+          console.log(type)
         break;
+      case SurveyType.LONG_ANSWER:
+         if (newChanging) this.fbs.resetSurveyElement(this.control, InitLongAnswer, type);
+         this.loadComponent(LongAnswerComponent);
+         console.log(type)
+         break;
     }
   }
 
