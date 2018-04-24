@@ -5,3 +5,4 @@ export enum SurveyType {
   RADIO = <any> 'radio',
   SELECT = <any> 'select',
 }
+

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {EventsComponent} from './events.component';
 import {SharedModule} from '../../shared/shared.module';
+import {DropFile} from '../../shared/directives/drop-file';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [
-    EventsComponent
+    EventsComponent,
+    DropFile
   ]
 })
 export class EventsModule {

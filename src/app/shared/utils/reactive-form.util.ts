@@ -15,6 +15,7 @@ export class ReactiveFormUtil {
    * @returns {any}
    */
   static splice(formArray: FormArray, startAt: number, count: number = 1, ...elements: FormGroup[]) {
+    console.warn('method `splice` for FormArray is cut and works not same as Array\'s one');
     let tail: FormGroup[] = [];
 
     /**

@@ -151,7 +151,6 @@ export class DragNDrop implements OnInit, OnDestroy {
         : yPos}px`;
 
     this.sibling = <HTMLElement>(<HTMLElement>event.target).closest(this.selector);
-    console.log(this.sibling);
     let stub = this.overlay.getElementsByClassName('stub')[0];
     switch (this.actionWithStub(y)) {
       case AddStub.removeAndAddAfter:
@@ -192,7 +191,6 @@ export class DragNDrop implements OnInit, OnDestroy {
       parentTop = this.overlay.getBoundingClientRect().top,
       stub = this.overlay.getElementsByClassName('stub')[0];
 
-    // console.log(y)
     return stub
       ? AddStub.removeAndAddAfter
       // ? stub.nextSibling == this.sibling && y - siblingTop + parentTop - this.parentHeight < siblingHeight && y - siblingTop + parentTop - this.parentHeight > siblingHeight / 2

@@ -69,12 +69,8 @@ export class SurveyEditorComponent implements OnInit {
    * @param {IndexState} indexes
    */
   changeFormArray(indexes: IndexState) {
-    // const surveyElem = this.surveyGroup.splice(indexes.oldIndex, 1)[0];
     const surveyElem = ReactiveFormUtil.splice(this.surveyGroup, indexes.oldIndex, 1)[0];
     ReactiveFormUtil.splice(this.surveyGroup, indexes.newIndex, 0, surveyElem);
-    // let tail = this.surveyGroup.splice(indexes.newIndex);
-    // this.surveyGroup.push(surveyElem);
-    // this.surveyGroup = this.surveyGroup.concat(tail);
   }
 
 }
