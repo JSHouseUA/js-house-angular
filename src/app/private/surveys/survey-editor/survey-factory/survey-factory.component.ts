@@ -84,8 +84,9 @@ export class SurveyFactoryComponent implements OnInit {
         break;
       case SurveyType.LONG_ANSWER:
          if (newChanging) this.fbs.resetSurveyElement(this.control, InitLongAnswer, type);
+          console.log(type)
          this.loadComponent(LongAnswerComponent);
-         console.log(type)
+
          break;
     }
   }

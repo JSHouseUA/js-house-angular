@@ -3,6 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SurveyType} from '../../../shared/models/survey/type';
 import {ShortAnswer} from '../../../shared/models/survey/short-answer';
 import {RadioAnswer} from '../../../shared/models/survey/radio-answer';
+import {LongAnswer} from "../../../shared/models/survey/long-answer";
 
 @Injectable()
 export class FormGroupBuilderService {
@@ -20,7 +21,7 @@ export class FormGroupBuilderService {
         return this.radioOrCheckboxAnswer(data);
       case SurveyType.LONG_ANSWER:
         //TODO: Часть для Александра
-        return this.radioOrCheckboxAnswer(data);
+        return this.longAnswer(data);
       case SurveyType.SELECT:
         //TODO: Часть для Александра
         return this.radioOrCheckboxAnswer(data);
@@ -48,6 +49,13 @@ export class FormGroupBuilderService {
       'regex': [data.regex.regex]
     }));
     return baseGroup;
+  }
+
+  private longAnswer(data: LongAnswer): FormGroup {
+      const baseGroup: FormGroup = this.baseAnswerFields(data),
+          formData = <FormGroup>baseGroup.controls.formData;
+      formData.addControl('placeholder', this.fb.control(data.formData.placeholder));
+      return baseGroup;
   }
 
   private radioOrCheckboxAnswer(data: RadioAnswer) {
