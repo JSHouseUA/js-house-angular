@@ -42,8 +42,11 @@ export class DragNDrop implements OnInit, OnDestroy {
    * @property {HTMLElement} sibling
    */
   private sibling: HTMLElement;
-  private dragStarted: Boolean;
-  private dragEnded: Boolean;
+  /**
+   * @property {boolean} dragStarted
+   */
+  private dragStarted: boolean;
+  private dragEnded: boolean;
   private dragStartedCoords: Coordinates;
   private initIndex: number;
 
