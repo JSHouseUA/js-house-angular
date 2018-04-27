@@ -34,6 +34,7 @@ const routes: Routes = [
   entryComponents: [
     ShortAnswerComponent,
     RadioAnswerComponent,
+      LongAnswerComponent
   ],
   providers:[
     FormGroupBuilderService

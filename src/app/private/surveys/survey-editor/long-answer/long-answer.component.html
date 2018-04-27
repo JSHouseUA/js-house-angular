@@ -4,19 +4,14 @@
       <input matInput placeholder="Question" formControlName="title">
     </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Short description" formControlName="description">
-    </mat-form-field>
-
-    <!--<mat-form-field>-->
-      <!--<input matInput placeholder="placeholder" formControlName="placeholder">-->
-    <!--</mat-form-field>-->
-
-    <mat-form-field>
-      <input matInput placeholder="Answer max length" type="number" min="50" formControlName="maxLength">
-    </mat-form-field>
-
     <mat-checkbox formControlName="required">required</mat-checkbox>
+
+    <mat-form-field class="textarea">
+      <textarea matInput placeholder="Long description" formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field class="textarea">
+      <textarea matInput placeholder="placeholder" formControlName="placeholder"></textarea>
+    </mat-form-field>
 
   </form>
 </div>
