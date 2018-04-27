@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -13,22 +14,24 @@ export class LoginComponent implements OnInit {
   dataForm: any;
   registrForm: FormGroup;
 
-  constructor(private http: HttpClient) {
+  constructor(private loginService: LoginService) {
     this.registrForm = new FormGroup({
-      "loginUser": new FormControl("", Validators.required),
-      "passwordUser": new FormControl("", Validators.required)
+      "username": new FormControl("", Validators.required),
+      "password": new FormControl("", Validators.required)
     })
-  }
-
-  submit() {
-
-    // this.dataForm = this.registrForm.value;
-    // let params = new HttpParams().append('loginUser', this.dataForm.loginUser).append('passwordUser', this.dataForm.passwordUser);
-    this.http.get('http://www.mocky.io/v2/5acd10333200006d0077664d', {params: this.registrForm.value}).subscribe((data) => this.user = data);
   }
 
   ngOnInit() {
 
   }
+
+  login(){
+    this.loginService.login(this.registrForm.value).subscribe(
+      data => {
+        console.log(data)
+      }
+    )
+  }
+
 
 }
